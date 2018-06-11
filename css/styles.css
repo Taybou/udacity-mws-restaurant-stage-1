@@ -272,6 +272,39 @@ nav h1 a {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+@media screen and (max-width: 550px) {
+    .map-container {
+        width: 100%;
+        height: 25vh;
+        order: 1;
+        position: relative;
+    }
+
+    #map {
+        width: 100%;
+        height: 25vh;
+        background-color: #ccc;
+    }
+
+    #restaurants-list {
+        padding: 80px 0 0 0;
+    }
+
+    .restaurants-container {
+        width: 100%;
+        order: 2;
+    }
+
+    .filter-options {
+        width: 100%;
+        position: relative;
+    }
+
+    footer {
+        width: 100%;
+    }
+}
+
 /* ====================== Restaurant Details ====================== */
 .inside header {
     position: fixed;
@@ -416,4 +449,38 @@ nav h1 a {
 
 #restaurant-hours td {
     color: #666;
+}
+
+@media screen and (max-width: 550px) {
+    .inside .breadcrumb-nav {
+        width: 100%;
+    }
+
+    .inside #map-container {
+        width: 100%;
+        height: 25vh;
+        position: relative;
+        margin-top: 51px;
+        order: 1;
+    }
+
+    .inside #map {
+        width: 100%;
+        height: 25vh;
+    }
+
+    .inside .restaurant-container {
+        width: 100%;
+        padding: 80px 0 0 0;
+        margin-left: 15px;
+        order: 2;
+    }
+
+    .inside #reviews-container {
+        width: 100%;
+    }
+
+    .inside footer {
+        width: 100%;
+    }
 }
