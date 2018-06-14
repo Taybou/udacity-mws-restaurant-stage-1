@@ -2,7 +2,7 @@ let restaurants;
 let neighborhoods;
 let cuisines;
 let map;
-let markers = [];
+var markers = [];
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
