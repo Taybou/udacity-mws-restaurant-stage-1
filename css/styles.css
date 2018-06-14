@@ -329,8 +329,7 @@ nav h1 a {
     width: 100%;
 }
 
-/* */
-
+/* ====================== restaurant-container ====================== */
 .inside footer {
     bottom: 0;
     position: absolute;
@@ -378,7 +377,7 @@ nav h1 a {
     width: 50%;
 }
 
-/* Reviews */
+/* ====================== Reviews ====================== */
 #reviews-container {
     padding: 30px 40px 80px;
 }
@@ -430,7 +429,6 @@ nav h1 a {
 }
 
 /* ====================== Reviews List ====================== */
-
 #reviews-list li {
     background-color: #fff;
     border: 2px solid #f3f3f3;
@@ -441,10 +439,6 @@ nav h1 a {
     overflow: hidden;
     position: relative;
     width: 85%;
-}
-
-#reviews-list li p {
-
 }
 
 #restaurant-hours td {
