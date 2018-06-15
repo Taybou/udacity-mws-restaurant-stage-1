@@ -170,10 +170,9 @@ nav h1 a {
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
     display: flex;
-    flex-direction: row;
+    -webkit-flex-flow: row wrap;
     justify-content: flex-start;
     width: 70%;
-    height: 50px;
     background-color: #3397DB;
     align-items: center;
     position: fixed;
@@ -197,7 +196,6 @@ nav h1 a {
     letter-spacing: 0;
     margin: 8px;
     padding: 0 10px;
-    width: 200px;
 }
 
 /* ====================== Restaurant Listing ====================== */
