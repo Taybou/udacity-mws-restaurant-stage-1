@@ -68,10 +68,12 @@ footer {
     color: #aaa;
     font-size: 8pt;
     letter-spacing: 1px;
-    padding: 25px;
+    padding: 25px 0 25px;
     text-align: center;
     text-transform: uppercase;
     width: 70%;
+    bottom: 0;
+    position: absolute;
 }
 
 header {
@@ -170,21 +172,11 @@ nav h1 a {
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
     display: flex;
-    -webkit-flex-flow: row wrap;
-    justify-content: flex-start;
     width: 70%;
     background-color: #3397DB;
     align-items: center;
     position: fixed;
     top: 80px;
-}
-
-.filter-options h2 {
-    color: white;
-    font-size: 1rem;
-    font-weight: normal;
-    line-height: 1;
-    margin: 0 20px;
 }
 
 .filter-options select {
@@ -193,6 +185,7 @@ nav h1 a {
     font-family: Arial, sans-serif;
     font-size: 11pt;
     height: 35px;
+    width: 50%;
     letter-spacing: 0;
     margin: 8px;
     padding: 0 10px;
@@ -203,7 +196,7 @@ nav h1 a {
     background-color: #f3f3f3;
     list-style: outside none none;
     margin: 0;
-    padding: 145px 15px 30px;
+    padding: 145px 15px 70px;
     text-align: center;
     display: flex;
     flex-wrap: wrap;
@@ -285,7 +278,7 @@ nav h1 a {
     }
 
     #restaurants-list {
-        padding: 80px 0 0 0;
+        padding: 80px 0 85px 0;
     }
 
     .restaurants-container {
@@ -329,10 +322,7 @@ nav h1 a {
 
 /* ====================== restaurant-container ====================== */
 .inside footer {
-    bottom: 0;
-    position: absolute;
     width: 60%;
-    padding: 25px 0 25px
 }
 
 #restaurant-name {
