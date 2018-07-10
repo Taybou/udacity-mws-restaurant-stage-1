@@ -1,6 +1,10 @@
 let restaurant;
 let map;
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    fetchRestaurantFromURL();
+});
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -25,12 +29,16 @@ window.initMap = () => {
  */
 fetchRestaurantFromURL = (callback) => {
     if (self.restaurant) { // restaurant already fetched!
-        callback(null, self.restaurant);
+        if (callback) {
+            callback(null, self.restaurant);
+        }
         return;
     }
     const id = getParameterByName('id');
     if (!id) { // no id found in URL
-        callback('No restaurant id in URL', null);
+        if (callback) {
+            callback('No restaurant id in URL', null);
+        }
     } else {
         DBHelper.fetchRestaurantById(id, (error, restaurant) => {
             self.restaurant = restaurant;
@@ -39,7 +47,9 @@ fetchRestaurantFromURL = (callback) => {
                 return;
             }
             fillRestaurantHTML();
-            callback(null, restaurant)
+            if (callback) {
+                callback(null, restaurant);
+            }
         });
     }
 };
