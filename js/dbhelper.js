@@ -13,21 +13,62 @@ class DBHelper {
     }
 
     /**
+     * Open indexedDB database and create an object to store restaurants
+     * each object of the database has a key. It's restaurant id.
+     *
+     * @returns indexedDB promise
+     */
+    static openIDB() {
+        if (!('indexedDB' in window)) {
+            console.log('This browser does not support IndexedDB');
+            return;
+        }
+
+        return idb.open('mws-restaurant-db', 1, upgradeDB => {
+            upgradeDB.createObjectStore('restaurants', {keyPath: 'id'});
+        });
+    }
+
+    /**
      * Fetch all restaurants.
      */
     static fetchRestaurants(callback) {
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', DBHelper.DATABASE_URL);
-        xhr.onload = () => {
-            if (xhr.status === 200) { // Got a success response from server!
-                const restaurants = JSON.parse(xhr.responseText);
+        const dbPromise = DBHelper.openIDB();
+
+        dbPromise.then(db => {
+            const tx = db.transaction('restaurants', 'readwrite');
+            const restaurantsStore = tx.objectStore('restaurants');
+            return restaurantsStore.getAll();
+        }).then(restaurants => {
+            if (restaurants && restaurants.length !== 0) {
                 callback(null, restaurants);
-            } else { // Oops!. Got an error from server.
-                const error = (`Request failed. Returned status of ${xhr.status}`);
-                callback(error, null);
+            } else {
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', DBHelper.DATABASE_URL);
+                xhr.onload = () => {
+                    if (xhr.status === 200) { // Got a success response from server!
+                        const restaurants = JSON.parse(xhr.responseText);
+
+                        dbPromise.then(db => {
+                            const tx = db.transaction('restaurants', 'readwrite');
+                            const restaurantsStore = tx.objectStore('restaurants');
+
+                            restaurants.forEach(restaurant => restaurantsStore.put(restaurant));
+
+                            return tx.complete;
+                        }).then(() => {
+                            console.log("Added with success!!");
+                        });
+
+                        callback(null, restaurants);
+                    } else { // Oops!. Got an error from server.
+                        const error = (`Request failed. Returned status of ${xhr.status}`);
+                        callback(error, null);
+                    }
+                };
+                xhr.send();
             }
-        };
-        xhr.send();
+        });
     }
 
     /**
