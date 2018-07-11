@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mws-restaurant-v8';
+const CACHE_NAME = 'mws-restaurant-v22';
 
 self.addEventListener('install', event => {
     const urlsToCache = [
@@ -11,7 +11,9 @@ self.addEventListener('install', event => {
         './js/idb.js',
         './css/styles.css',
         './data/restaurants.json',
-        './destImg'
+        './destImg',
+        './img/icon-512.png',
+        './manifest.json'
     ];
 
     event.waitUntil(
