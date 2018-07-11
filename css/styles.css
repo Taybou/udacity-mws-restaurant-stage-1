@@ -65,7 +65,7 @@ section {
 
 footer {
     background-color: #444;
-    color: #aaa;
+    color: #DBDBDB;
     font-size: 8pt;
     letter-spacing: 1px;
     padding: 25px 0 25px;
@@ -204,7 +204,7 @@ nav h1 a {
 }
 
 #restaurants-list li {
-    background-color: #fff;
+    background-color: #F7F7F7;
     border: 2px solid #ccc;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
@@ -228,7 +228,7 @@ nav h1 a {
 }
 
 #restaurants-list li h1 {
-    color: #f18200;
+    color: #4347A7;
     font-family: Arial, sans-serif;
     font-size: 1.8vw;
     font-weight: 200;
@@ -245,11 +245,11 @@ nav h1 a {
 }
 
 #restaurants-list li a {
-    background-color: orange;
+    background-color: #4347A7;
     border-bottom: 3px solid #ccc;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    color: #fff;
+    color: #F7F7F7;
     display: inline-block;
     font-size: 1.5vw;
     margin: 15px 0 0;
