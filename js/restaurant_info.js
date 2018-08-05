@@ -197,7 +197,7 @@ createReviewHTML = (review) => {
 
     const date = document.createElement('p');
     date.className = 'review-date';
-    date.innerHTML = review.date;
+    date.innerHTML = formatDate(review.createdAt);
     header.appendChild(date);
 
     const rating = document.createElement('p');
@@ -241,4 +241,16 @@ getParameterByName = (name, url) => {
     if (!results[2])
         return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
+/**
+ * This function used to format the date
+ *
+ * @param dateTimeStamp
+ * @returns {string} date
+ */
+formatDate = (dateTimeStamp) => {
+    const date = new Date(dateTimeStamp);
+    const options = {year: 'numeric', month: 'long', day: 'numeric'};
+    return date.toLocaleString('en-US', options);
 };

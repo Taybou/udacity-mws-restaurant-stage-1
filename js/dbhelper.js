@@ -88,14 +88,37 @@ class DBHelper {
             if (error) {
                 callback(error, null);
             } else {
-                const restaurant = restaurants.find(r => r.id == id);
+                let restaurant = restaurants.find(r => r.id == id);
+
                 if (restaurant) { // Got the restaurant
-                    callback(null, restaurant);
+                    DBHelper.fetchRestaurantReviewsById(id, restaurant, callback);
                 } else { // Restaurant does not exist in the database
                     callback('Restaurant does not exist', null);
                 }
             }
         });
+    }
+
+    /**
+     * Fetch a restaurant reviews by its ID.
+     */
+    static fetchRestaurantReviewsById(id, restaurant, callback) {
+        let xhr = new XMLHttpRequest();
+        const params = '?restaurant_id=' + id;
+
+        xhr.open('GET', DBHelper.REVIEWS_URL + params, true);
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                restaurant.reviews = JSON.parse(xhr.responseText);
+
+                callback(null, restaurant);
+            } else { // Oops!. Got an error from server.
+                console.error(`Request failed. Returned status of ${xhr.status}`);
+                callback('Restaurant reviews does not exist', null);
+            }
+        };
+        xhr.send();
     }
 
     /**
