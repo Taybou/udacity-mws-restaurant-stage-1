@@ -1,6 +1,9 @@
 let restaurant;
 let map;
-
+let isFormsubmitted = false;
+let isStatusOffline = false;
+const statusFlag = document.getElementById('status-flag');
+const statusFlagText = document.getElementById('status-flag-text');
 
 // To fix issue when there is no Map
 
@@ -173,8 +176,15 @@ fillReviewsFormHTML = () => {
     submit.setAttribute('role', 'button');
     form.appendChild(submit);
 
-    form.addEventListener('submit', function () {
-        DBHelper.createRestaurantReview();
+    form.addEventListener('submit', (event) => {
+        isFormsubmitted = true;
+
+        if (navigator.onLine) {
+            DBHelper.createRestaurantReview();
+        } else {
+            event.preventDefault();
+            event.stopPropagation();
+        }
     });
     container.appendChild(form);
 };
@@ -254,3 +264,43 @@ formatDate = (dateTimeStamp) => {
     const options = {year: 'numeric', month: 'long', day: 'numeric'};
     return date.toLocaleString('en-US', options);
 };
+
+/**
+ * This function check if the form is valid
+ *
+ * @returns {boolean} valid
+ */
+isFormValid = () => {
+    return document.getElementById('user-name').value
+        && document.getElementById('user-rating').value
+        && document.getElementById('user-comment').value;
+};
+
+/**
+ * check the status of navigator (online/offline)
+ */
+setInterval(function () {
+    if (navigator.onLine) {
+        if (isStatusOffline) {
+            statusFlag.style.backgroundColor = 'green';
+            statusFlag.style.display = 'block';
+            statusFlagText.textContent = 'You are online';
+
+            setTimeout(function () {
+                statusFlag.style.display = 'none';
+
+                if (isFormValid() && isFormsubmitted) {
+                    DBHelper.createRestaurantReview();
+                }
+            }, 500);
+
+            isStatusOffline = false;
+        }
+    } else {
+        statusFlag.style.backgroundColor = 'red';
+        statusFlag.style.display = 'block';
+        statusFlagText.textContent = 'You are offline !';
+
+        isStatusOffline = true;
+    }
+}, 250);

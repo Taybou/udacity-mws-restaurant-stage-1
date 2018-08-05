@@ -116,6 +116,16 @@ nav h1 a {
     width: 60%;
 }
 
+#status-flag {
+    background-color: red;
+    color: #fff;
+    display: none;
+    font-size: 14px;
+    font-weight: 200;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
 #breadcrumb {
     padding: 10px 40px 16px;
     font-size: 17px;
