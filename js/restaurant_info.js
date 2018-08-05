@@ -1,9 +1,12 @@
 let restaurant;
 let map;
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    fetchRestaurantFromURL();
-});
+
+// To fix issue when there is no Map
+
+// document.addEventListener('DOMContentLoaded', (event) => {
+//     fetchRestaurantFromURL();
+// });
 
 /**
  * Initialize Google map, called from HTML.
@@ -84,6 +87,9 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     }
     // fill reviews
     fillReviewsHTML();
+
+    // fill reviews form
+    fillReviewsFormHTML();
 };
 
 /**
@@ -126,6 +132,51 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
         ul.appendChild(createReviewHTML(review));
     });
     container.appendChild(ul);
+};
+
+/**
+ * Create review form HTML and add it
+ to the webpage.
+ */
+fillReviewsFormHTML = () => {
+    const container = document.getElementById('reviews-container');
+    const title = document.createElement('h3');
+    title.innerHTML = 'Leave review';
+    container.appendChild(title);
+
+    const form = document.createElement('form');
+
+    const inputUserName = document.createElement('input');
+    inputUserName.innerHTML = 'User name';
+    inputUserName.id = 'user-name';
+    inputUserName.placeholder = 'User name';
+    inputUserName.required = true;
+    form.appendChild(inputUserName);
+
+    const inputUserRating = document.createElement('input');
+    inputUserRating.innerHTML = 'User rating';
+    inputUserRating.id = 'user-rating';
+    inputUserRating.required = true;
+    form.appendChild(inputUserRating);
+
+    const comment = document.createElement('textarea');
+    comment.rows = 4;
+    comment.id = 'user-comment';
+    comment.cols = 50;
+    comment.required = true;
+    form.appendChild(comment);
+
+    const submit = document.createElement('input');
+    submit.value = 'Rate restaurant';
+    submit.type = 'submit';
+    submit.setAttribute('aria-label', 'Submit restaurant review');
+    submit.setAttribute('role', 'button');
+    form.appendChild(submit);
+
+    form.addEventListener('submit', function () {
+        DBHelper.createRestaurantReview();
+    });
+    container.appendChild(form);
 };
 
 /**

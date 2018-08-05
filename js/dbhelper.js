@@ -13,6 +13,14 @@ class DBHelper {
     }
 
     /**
+     * Restaurant reviews URL.
+     */
+    static get REVIEWS_URL() {
+        const port = 1337; // Change this to your server port
+        return `http://localhost:${port}/reviews`;
+    }
+
+    /**
      * Open indexedDB database and create an object to store restaurants
      * each object of the database has a key. It's restaurant id.
      *
@@ -212,4 +220,40 @@ class DBHelper {
         return marker;
     }
 
+    static createRestaurantReview() {
+        let xhr = new XMLHttpRequest();
+        const params = 'restaurant_id=' + DBHelper.getParameterByName('id')
+            + '&name=' + document.getElementById('user-name').value
+            + '&rating=' + document.getElementById('user-rating').value
+            + '&comments=' + document.getElementById('user-comment').value;
+
+        xhr.open('POST', DBHelper.REVIEWS_URL);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = () => {
+            if (xhr.status === 201) {
+                console.log("Added with success!!");
+                location.reload();
+            } else { // Oops!. Got an error from server.
+                console.error(`Request failed. Returned status of ${xhr.status}`);
+            }
+        };
+
+        xhr.send(params);
+    }
+
+    /**
+     * Get a parameter by name from page URL.
+     */
+    static getParameterByName(name, url) {
+        if (!url)
+            url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`),
+            results = regex.exec(url);
+        if (!results)
+            return null;
+        if (!results[2])
+            return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    };
 }
