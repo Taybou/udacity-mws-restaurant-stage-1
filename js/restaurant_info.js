@@ -148,33 +148,77 @@ fillReviewsFormHTML = () => {
     container.appendChild(title);
 
     const form = document.createElement('form');
+    const table = document.createElement('table');
+
+    let tr = document.createElement('tr');
+    let td = document.createElement('td');
+
+    const labelUserName = document.createElement('label');
+    labelUserName.innerText = 'Name';
+    td.appendChild(labelUserName);
+    tr.appendChild(td);
 
     const inputUserName = document.createElement('input');
     inputUserName.innerHTML = 'User name';
     inputUserName.id = 'user-name';
     inputUserName.placeholder = 'User name';
     inputUserName.required = true;
-    form.appendChild(inputUserName);
+
+    td = document.createElement('td');
+    td.appendChild(inputUserName);
+    tr.appendChild(td);
+    table.appendChild(tr);
+
+    tr = document.createElement('tr');
+    td = document.createElement('td');
+
+    const labelUserRating = document.createElement('label');
+    labelUserRating.innerText = 'Rate';
+    td.appendChild(labelUserRating);
+    tr.appendChild(td);
 
     const inputUserRating = document.createElement('input');
     inputUserRating.innerHTML = 'User rating';
     inputUserRating.id = 'user-rating';
+    inputUserRating.type = 'number';
+    inputUserRating.placeholder = 'Rate between 1 & 5';
     inputUserRating.required = true;
-    form.appendChild(inputUserRating);
+
+    td = document.createElement('td');
+    td.appendChild(inputUserRating);
+    tr.appendChild(td);
+    table.appendChild(tr);
+
+    tr = document.createElement('tr');
+    td = document.createElement('td');
+
+    const labelComment = document.createElement('label');
+    labelComment.innerText = 'Comment';
+    td.appendChild(labelComment);
+    tr.appendChild(td);
 
     const comment = document.createElement('textarea');
     comment.rows = 4;
     comment.id = 'user-comment';
     comment.cols = 50;
     comment.required = true;
-    form.appendChild(comment);
+
+    td = document.createElement('td');
+    td.appendChild(comment);
+    tr.appendChild(td);
+    table.appendChild(tr);
+
+    tr = document.createElement('tr');
+    td = document.createElement('td');
 
     const submit = document.createElement('input');
     submit.value = 'Rate restaurant';
     submit.type = 'submit';
     submit.setAttribute('aria-label', 'Submit restaurant review');
     submit.setAttribute('role', 'button');
-    form.appendChild(submit);
+    td.appendChild(submit);
+    tr.appendChild(td);
+    table.appendChild(tr);
 
     form.addEventListener('submit', (event) => {
         isFormsubmitted = true;
@@ -186,6 +230,8 @@ fillReviewsFormHTML = () => {
             event.stopPropagation();
         }
     });
+
+    form.appendChild(table);
     container.appendChild(form);
 };
 
